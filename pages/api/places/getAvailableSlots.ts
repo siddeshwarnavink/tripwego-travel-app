@@ -32,7 +32,11 @@ const handler = nextConnect()
         // TODO: Add logic to check if slot is available
         const availableDates = [];
         bookingSlots.forEach(bookingSlot => {
-            availableDates.push(getDayOrderOfWeek(bookingSlot.dayOfWeek));
+            const slotDate = new Date(getDayOrderOfWeek(bookingSlot.dayOfWeek));
+
+            if (slotDate.getDate() > new Date().getDate()) {
+                availableDates.push(getDayOrderOfWeek(bookingSlot.dayOfWeek));
+            }
         });
 
         res.status(200).json(availableDates);
