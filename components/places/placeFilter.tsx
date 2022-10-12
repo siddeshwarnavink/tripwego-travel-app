@@ -1,11 +1,21 @@
-import { Text, Paper, RangeSlider, SimpleGrid, Button, Container, Select } from '@mantine/core';
+import {
+    Text,
+    Paper,
+    RangeSlider,
+    SimpleGrid,
+    Button,
+    Container,
+    Select
+} from '@mantine/core';
 import { DateRangePicker, DateRangePickerValue } from '@mantine/dates';
+
+import { ICategory } from '../../models/ICategory';
 
 interface PlaceFilterProps {
     budget: number[],
     tripDateRange: any[],
     categoryPicked: number,
-    categories: any[],
+    categories: ICategory[],
     onBudgetChange: (values: number[]) => void,
     onTripDateRangeChange: (values: any[]) => void,
     onCategoryChange: (value: number) => void
