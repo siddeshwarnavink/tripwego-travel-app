@@ -2,7 +2,8 @@ import { FormEvent, useState } from 'react';
 import {
   Container,
   Text
-} from '@mantine/core'
+} from '@mantine/core';
+import Router from 'next/router';
 
 import { IPlace } from '../models/IPlaces';
 import { ICategory } from '../models/ICategory';
@@ -46,7 +47,16 @@ function Index(props: IndexProps) {
 
   async function onPlaceFilterFormSubmitHandler(event: FormEvent) {
     event.preventDefault();
-    // TODO: send filter to backend
+    const filterData = {
+      category: filterCategory,
+      budget: JSON.stringify(filterBudget),
+      tripDateRange: tripDateRange.map(dateObj => `${dateObj.getFullYear()}-${dateObj.getMonth()}-${dateObj.getDate()}`)
+    };
+
+    await Router.push({
+      pathname: '/',
+      query: filterData,
+    });
   }
 
   return (
