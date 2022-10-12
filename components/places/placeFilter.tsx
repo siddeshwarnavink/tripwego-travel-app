@@ -8,7 +8,7 @@ import {
     Select
 } from '@mantine/core';
 import { DateRangePicker, DateRangePickerValue } from '@mantine/dates';
-import { useResponsive } from 'react-hooks-responsive';
+import { useResponsive } from '../../hooks/useResponsive';
 
 import { ICategory } from '../../models/ICategory';
 
@@ -31,7 +31,7 @@ const marks = [
 const breakpoints = { xs: 0, sm: 480, md: 1024 };
 
 function PlaceFilter(props: PlaceFilterProps) {
-    const { size, orientation, screenIsAtLeast, screenIsAtMost } = useResponsive(breakpoints);
+    const { screenIsAtLeast } = useResponsive();
 
     return (
         <Paper shadow='xs' radius='md' p='md'>
