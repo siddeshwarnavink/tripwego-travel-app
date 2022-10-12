@@ -53,10 +53,10 @@ function PlaceFilter(props: PlaceFilterProps) {
                             marks={marks}
                         />
                     </div>
-                    <div style={screenIsAtLeast('md') ? null : { paddingTop: '32px' }}>
+                    {/* <div style={screenIsAtLeast('md') ? null : { paddingTop: '32px' }}>
                         <Text size='sm' weight='bold'>Trip duration:</Text>
                         <DateRangePicker value={props.tripDateRange as DateRangePickerValue} onChange={props.onTripDateRangeChange} />
-                    </div>
+                    </div> */}
                     <div style={screenIsAtLeast('md') ? null : { paddingTop: '12px' }}>
                         <Text size='sm' weight='bold'>Category:</Text>
                         <Select
