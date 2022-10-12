@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import {
     Container,
@@ -16,11 +16,13 @@ import { useForm } from '@mantine/form';
 
 import { IPlace } from '../../../models/IPlaces';
 import absoluteUrl from '../../../helpers/absoluteUrl';
+import formatDate from '../../../helpers/formatDate';
 import Layout from '../../../components/layout';
 import PlaceListItem from '../../../components/places/placeListItem';
 
 interface BookSlotProps {
     place: IPlace;
+    availableDates: string[];
 }
 
 export async function getServerSideProps({ req, query }) {
@@ -30,15 +32,20 @@ export async function getServerSideProps({ req, query }) {
     const placeReq = await fetch(`${baseApiUrl}/places/${query.placeId}`);
     const { place } = await placeReq.json();
 
+    const availableSlotsReq = await fetch(`${baseApiUrl}/places/getAvailableSlots?id=${query.placeId}`);
+    const availableDates = await availableSlotsReq.json();
+
     return {
         props: {
-            place
+            place,
+            availableDates
         }
     };
 }
 
 function BookSlot(props: BookSlotProps) {
     const [active, setActive] = useState(0);
+    const [slotDate, setSlotDate] = useState(props.availableDates[0]);
     const nextStep = () => setActive((current) => (current < 3 ? current + 1 : current));
     const prevStep = () => setActive((current) => (current > 0 ? current - 1 : current));
 
@@ -75,12 +82,14 @@ function BookSlot(props: BookSlotProps) {
                             <SimpleGrid cols={2} px='lg'>
                                 <Select
                                     label='Select date'
-                                    data={[
-                                        { value: 'react', label: 'React' },
-                                        { value: 'ng', label: 'Angular' },
-                                        { value: 'svelte', label: 'Svelte' },
-                                        { value: 'vue', label: 'Vue' },
-                                    ]}
+                                    value={slotDate}
+                                    onChange={setSlotDate}
+                                    data={props.availableDates.map((availableDate, index) => {
+                                        return {
+                                            value: availableDate,
+                                            label: formatDate(new Date(availableDate))
+                                        };
+                                    })}
                                 />
                             </SimpleGrid>
                         </Stepper.Step>
