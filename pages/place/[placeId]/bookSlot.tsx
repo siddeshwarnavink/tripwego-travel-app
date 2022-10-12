@@ -15,6 +15,7 @@ import { IconCircleCheck } from '@tabler/icons'
 import { useForm } from '@mantine/form';
 
 import { IPlace } from '../../../models/IPlaces';
+import useTranslation from '../../../hooks/useTranslation';
 import absoluteUrl from '../../../helpers/absoluteUrl';
 import formatDate from '../../../helpers/formatDate';
 import validateEmail from '../../../helpers/validateEmail';
@@ -51,6 +52,7 @@ export async function getServerSideProps({ req, query }) {
 function BookSlot(props: BookSlotProps) {
     const [active, setActive] = useState(0);
     const [slotDate, setSlotDate] = useState(props.availableDates[0]);
+    const { t } = useTranslation();
 
     const form = useForm({
         initialValues: {
@@ -123,7 +125,9 @@ function BookSlot(props: BookSlotProps) {
     return (
         <Layout>
             <Container>
-                <Text size='xl' weight='bold'>Book a slot</Text>
+                <Text size='xl' weight='bold'>
+                    {t('bookSlot.caption')}
+                </Text>
                 <PlaceListItem
                     title={props.place.title}
                     shortDescription={props.place.short_description}
@@ -135,10 +139,10 @@ function BookSlot(props: BookSlotProps) {
 
                 <Container mt='xl'>
                     <Stepper active={active} onStepClick={setActiveStepHandler} breakpoint='sm'>
-                        <Stepper.Step label='Pick a slot'>
+                        <Stepper.Step label={t('bookSlot.step1.caption')}>
                             <SimpleGrid cols={2} px='lg'>
                                 <Select
-                                    label='Select date'
+                                    label={t('bookSlot.step1.selectDateLabel')}
                                     value={slotDate}
                                     onChange={setSlotDate}
                                     data={props.availableDates.map((availableDate, index) => {
@@ -150,50 +154,49 @@ function BookSlot(props: BookSlotProps) {
                                 />
                             </SimpleGrid>
                         </Stepper.Step>
-                        <Stepper.Step label='Fill your details'>
+                        <Stepper.Step label={t('bookSlot.step2.caption')}>
                             <SimpleGrid cols={2}>
                                 <TextInput
                                     withAsterisk
-                                    label='First name'
-                                    placeholder='John'
+                                    label={t('bookSlot.step2.firstNameLabel')}
                                     {...form.getInputProps('firstName')}
                                 />
                                 <TextInput
                                     withAsterisk
-                                    label='Last name'
-                                    placeholder='doe'
+                                    label={t('bookSlot.step2.lastNameLabel')}
                                     {...form.getInputProps('lastName')}
                                 />
                             </SimpleGrid>
                             <SimpleGrid cols={2}>
                                 <TextInput
                                     withAsterisk
-                                    label='Email address'
-                                    placeholder='test@test.com'
+                                    label={t('bookSlot.step2.emailLabel')}
                                     {...form.getInputProps('email')}
                                 />
                                 <TextInput
                                     withAsterisk
-                                    label='Phone number'
+                                    label={t('bookSlot.step2.phoneNoLabel')}
                                     {...form.getInputProps('phoneNumber')}
                                 />
                             </SimpleGrid>
                             <Textarea
-                                label='Your address'
+                                label={t('bookSlot.step2.addressLabel')}
                                 withAsterisk
                                 minRows={4}
                                 {...form.getInputProps('address')}
                             />
                         </Stepper.Step>
-                        <Stepper.Step label='Get your tickets'>
+                        <Stepper.Step label={t('bookSlot.step3.caption')}>
                             <Container style={{ margin: '12px auto', maxWidth: '350px', textAlign: 'center' }}>
                                 <IconCircleCheck size={75} />
-                                <Text size='xl' weight='bold'>Slot booked successfully</Text>
-                                <Text>You'll soon be contacted by our team</Text>
+                                <Text size='xl' weight='bold'>{t('bookSlot.step3.successMsgCaption')}</Text>
+                                <Text>{t('bookSlot.step3.successMsgSubCaption')}</Text>
 
                                 <div style={{ marginTop: '12px' }}>
                                     <Link href='/' passHref>
-                                        <Button component='a'>Go home</Button>
+                                        <Button component='a'>
+                                            {t('bookSlot.step3.actionBtn')}
+                                        </Button>
                                     </Link>
                                 </div>
                             </Container>
@@ -201,10 +204,14 @@ function BookSlot(props: BookSlotProps) {
                     </Stepper>
                     <Group position="center" mt="xl">
                         {(active > 0 && active !== 2) && (
-                            <Button variant="default" onClick={prevStep}>Back</Button>
+                            <Button variant="default" onClick={prevStep}>
+                                {t('bookSlot.backBtn')}
+                            </Button>
                         )}
                         {active !== 2 && (
-                            <Button onClick={nextStep}>Next</Button>
+                            <Button onClick={nextStep}>
+                                {t('bookSlot.nextBtn')}
+                            </Button>
                         )}
                     </Group>
                 </Container>

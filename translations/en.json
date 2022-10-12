@@ -20,5 +20,28 @@
         "roadmapCaption": "Roadmap",
         "roadmapSubCaption": "Overview of the schedule of the tour",
         "finalCardCaption": "What are you waiting for?"
+    },
+    "bookSlot": {
+        "caption": "Book a slot",
+        "nextBtn": "Next",
+        "backBtn": "Back",
+        "step1": {
+            "caption": "Pick a slot",
+            "selectDateLabel": "Select date"
+        },
+        "step2": {
+            "caption": "Pick a slot",
+            "firstNameLabel": "First name",
+            "lastNameLabel": "Last name",
+            "emailLabel": "Email",
+            "phoneNoLabel": "Phone number",
+            "addressLabel": "Address"
+        },
+        "step3": {
+            "caption": "Get your tickets",
+            "successMsgCaption": "Slot booked successfully",
+            "successMsgSubCaption": "You'll soon be contacted by our team",
+            "actionBtn": "Go home"
+        }   
     }
 }
