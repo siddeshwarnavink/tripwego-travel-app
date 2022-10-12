@@ -34,8 +34,8 @@ fs.readdirSync(models)
     // db[model.name] = model;
 
     // TODO: Fix for dynamic models
-    db['places'] = require('/home/siddeshwar/Documents/Main coding/coderselite-demo-app/db/models/places.js')(sequelize, Sequelize.DataTypes);
-    db['categories'] = require('/home/siddeshwar/Documents/Main coding/coderselite-demo-app/db/models/categories.js')(sequelize, Sequelize.DataTypes);
+    db['places'] = require('/home/siddeshwar/Documents/Main coding/tripwego-travel-app/db/models/places.js')(sequelize, Sequelize.DataTypes);
+    db['categories'] = require('/home/siddeshwar/Documents/Main coding/tripwego-travel-app/db/models/categories.js')(sequelize, Sequelize.DataTypes);
   });
 
 Object.keys(db).forEach(modelName => {
