@@ -9,6 +9,7 @@ import { ICategory } from '../models/ICategory';
 import absoluteUrl from '../helpers/absoluteUrl';
 import Layout from '../components/layout';
 import PlaceFilter from '../components/places/placeFilter';
+import PlaceListItem from '../components/places/placeListItem';
 
 interface IndexProps {
   places: IPlace[],
@@ -65,7 +66,17 @@ function Index(props: IndexProps) {
         <Text size='xl' weight='bold'>Places to visit</Text>
       </Container>
       {props.places.map(place => {
-        return (<h1>{place.title}</h1>)
+        return (
+          <PlaceListItem
+            key={place.id}
+            placeId={`${place.id}`}
+            title={place.title}
+            thumbnail={place.thumbnail}
+            shortDescription={place.short_description}
+            price={place.price}
+            categoryCaption={place.categories.caption}
+          />
+        )
       })}
     </Layout>
   );

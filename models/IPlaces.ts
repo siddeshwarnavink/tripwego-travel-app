@@ -1,3 +1,5 @@
+import { ICategory } from "./ICategory";
+
 export interface IPlace {
     id: number;
     title: string;
@@ -12,4 +14,5 @@ export interface IPlace {
     locations: string,
     pictures: string,
     roadmap: string;
+    categories: ICategory;
 }
