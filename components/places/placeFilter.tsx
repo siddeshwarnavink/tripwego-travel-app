@@ -8,6 +8,7 @@ import {
     Select
 } from '@mantine/core';
 import { DateRangePicker, DateRangePickerValue } from '@mantine/dates';
+import { useResponsive } from 'react-hooks-responsive';
 
 import { ICategory } from '../../models/ICategory';
 
@@ -27,7 +28,11 @@ const marks = [
     { value: 100, label: '₹1,00,000' },
 ];
 
+const breakpoints = { xs: 0, sm: 480, md: 1024 };
+
 function PlaceFilter(props: PlaceFilterProps) {
+    const { size, orientation, screenIsAtLeast, screenIsAtMost } = useResponsive(breakpoints);
+
     return (
         <Paper shadow='xs' radius='md' p='md'>
             <Text
@@ -39,7 +44,7 @@ function PlaceFilter(props: PlaceFilterProps) {
                 Find your best destination
             </Text>
             <Container fluid py='lg'>
-                <SimpleGrid cols={4}>
+                <SimpleGrid cols={3} style={{ display: screenIsAtLeast('md') ? 'grid' : 'block' }}>
                     <div style={{ marginRight: '25px' }}>
                         <Text size='sm' weight='bold'>Trip budget:</Text>
                         <RangeSlider
@@ -50,11 +55,11 @@ function PlaceFilter(props: PlaceFilterProps) {
                             marks={marks}
                         />
                     </div>
-                    <div>
+                    <div style={screenIsAtLeast('md') ? null : { paddingTop: '32px' }}>
                         <Text size='sm' weight='bold'>Trip duration:</Text>
                         <DateRangePicker value={props.tripDateRange as DateRangePickerValue} onChange={props.onTripDateRangeChange} />
                     </div>
-                    <div>
+                    <div style={screenIsAtLeast('md') ? null : { paddingTop: '12px' }}>
                         <Text size='sm' weight='bold'>Category:</Text>
                         <Select
                             value={`${props.categoryPicked}`}
@@ -72,7 +77,7 @@ function PlaceFilter(props: PlaceFilterProps) {
             <Container fluid mt='xl' px={0}>
                 <Button type='submit'>Search</Button>
             </Container>
-        </Paper>
+        </Paper >
     );
 }
 

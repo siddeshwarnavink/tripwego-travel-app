@@ -34,7 +34,7 @@ function Layout(props: LayoutProps) {
                                 </Link>
                             </div>
                         </Grid.Col>
-                        <Grid.Col span={3}>
+                        {/* <Grid.Col span={3}>
                             <SimpleGrid cols={3}>
                                 {navigationLinks.map((link, i) => {
                                     return (
@@ -58,7 +58,7 @@ function Layout(props: LayoutProps) {
                                     );
                                 })}
                             </SimpleGrid>
-                        </Grid.Col>
+                        </Grid.Col> */}
                     </Grid>
                 </Header>
             )}
