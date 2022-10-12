@@ -61,33 +61,35 @@ function Index(props: IndexProps) {
 
   return (
     <Layout>
-      <form onSubmit={onPlaceFilterFormSubmitHandler}>
-        <PlaceFilter
-          budget={filterBudget}
-          tripDateRange={tripDateRange}
-          categoryPicked={filterCategory}
-          categories={props.categories} // TODO: get form database
-          onBudgetChange={setFilterBudget}
-          onTripDateRangeChange={setTripDateRange}
-          onCategoryChange={setFilterCategory}
-        />
-      </form>
-      <Container fluid pt='xl'>
-        <Text size='xl' weight='bold'>Places to visit</Text>
-      </Container>
-      {props.places.map(place => {
-        return (
-          <PlaceListItem
-            key={place.id}
-            placeId={`${place.id}`}
-            title={place.title}
-            thumbnail={place.thumbnail}
-            shortDescription={place.short_description}
-            price={place.price}
-            categoryCaption={place.categories.caption}
+      <Container>
+        <form onSubmit={onPlaceFilterFormSubmitHandler}>
+          <PlaceFilter
+            budget={filterBudget}
+            tripDateRange={tripDateRange}
+            categoryPicked={filterCategory}
+            categories={props.categories} // TODO: get form database
+            onBudgetChange={setFilterBudget}
+            onTripDateRangeChange={setTripDateRange}
+            onCategoryChange={setFilterCategory}
           />
-        )
-      })}
+        </form>
+        <Container fluid mt='xl'>
+          <Text size='xl' weight='bold'>Places to visit</Text>
+          {props.places.map(place => {
+            return (
+              <PlaceListItem
+                key={place.id}
+                placeId={`${place.id}`}
+                title={place.title}
+                thumbnail={place.thumbnail}
+                shortDescription={place.short_description}
+                price={place.price}
+                categoryCaption={place.categories.caption}
+              />
+            )
+          })}
+        </Container>
+      </Container>
     </Layout>
   );
 }

@@ -30,7 +30,7 @@ function BookSlot(props: BookSlotProps) {
     return (
         <Layout>
             <Container>
-                <Text size={20} weight='bold'>Book a slot</Text>
+                <Text size='xl' weight='bold'>Book a slot</Text>
                 <PlaceListItem
                     title={props.place.title}
                     shortDescription={props.place.short_description}
