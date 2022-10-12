@@ -4,20 +4,16 @@ import nextConnect from 'next-connect';
 import model from '../../../db/models';
 
 function getDayOrderOfWeek(dayOrder: number, isNextWeek = false) {
-    const myDate = isNextWeek ? new Date() : new Date();
+    var curr = new Date; // get current date
+    var first = curr.getDate() - curr.getDay();
+    var last = first + 6;
+    const myDate = isNextWeek ? new Date(curr.setDate(last + 1)) : new Date();
 
     let day = myDate.getDate() - (myDate.getDay() - dayOrder);
     let month = myDate.getMonth();
     let year = myDate.getFullYear();
 
     return `${year}-${month}-${day}`;
-}
-
-function isInThePast(date) {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-
-    return date < today;
 }
 
 const handler = nextConnect()
@@ -44,6 +40,7 @@ const handler = nextConnect()
             if (slotDate.getDate() > new Date().getDate()) {
                 if (bookingSlot.bookingCount !== numberOfPastBookings && bookingSlot.bookingCount > numberOfPastBookings) {
                     availableDates.push(getDayOrderOfWeek(bookingSlot.dayOfWeek));
+                    availableDates.push(getDayOrderOfWeek(bookingSlot.dayOfWeek, true));
                 }
             }
         }
