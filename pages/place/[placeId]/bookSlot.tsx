@@ -17,6 +17,9 @@ import { useForm } from '@mantine/form';
 import { IPlace } from '../../../models/IPlaces';
 import absoluteUrl from '../../../helpers/absoluteUrl';
 import formatDate from '../../../helpers/formatDate';
+import validateEmail from '../../../helpers/validateEmail';
+import validateString from '../../../helpers/validateString';
+import validatePhoneNumber from '../../../helpers/validatePhoneNumber';
 import Layout from '../../../components/layout';
 import PlaceListItem from '../../../components/places/placeListItem';
 
@@ -46,8 +49,6 @@ export async function getServerSideProps({ req, query }) {
 function BookSlot(props: BookSlotProps) {
     const [active, setActive] = useState(0);
     const [slotDate, setSlotDate] = useState(props.availableDates[0]);
-    const nextStep = () => setActive((current) => (current < 3 ? current + 1 : current));
-    const prevStep = () => setActive((current) => (current > 0 ? current - 1 : current));
 
     const form = useForm({
         initialValues: {
@@ -55,13 +56,39 @@ function BookSlot(props: BookSlotProps) {
             firstName: '',
             lastName: '',
             phoneNumber: '',
-            termsOfService: false,
+            address: ''
         },
 
         validate: {
-            email: (value) => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
+            firstName: value => validateString(value) ? null : 'Invalid first name',
+            lastName: value => validateString(value) ? null : 'Invalid last name',
+            phoneNumber: value => validatePhoneNumber(value) ? null : 'Invalid phoneNumber',
+            address: value => validateString(value) ? null : 'Invalid address',
+            email: (value) => validateEmail(value) ? null : 'Invalid email',
         },
     });
+
+    const nextStep = () => {
+        if (active == 1) {
+            form.validate();
+            if (form.isValid()) {
+                setActive(2);
+            }
+        } else {
+            setActive((current) => (current < 3 ? current + 1 : current));
+        }
+    }
+    const prevStep = () => setActive((current) => (current > 0 ? current - 1 : current));
+
+    function setActiveStepHandler(step: number) {
+        if (step === 2) {
+            if (form.isValid()) {
+                setActive(step);
+            }
+        } else {
+            setActive(step);
+        }
+    }
 
     return (
         <Layout>
@@ -77,7 +104,7 @@ function BookSlot(props: BookSlotProps) {
                 />
 
                 <Container mt='xl'>
-                    <Stepper active={active} onStepClick={setActive} breakpoint='sm'>
+                    <Stepper active={active} onStepClick={setActiveStepHandler} breakpoint='sm'>
                         <Stepper.Step label='Pick a slot'>
                             <SimpleGrid cols={2} px='lg'>
                                 <Select
@@ -125,6 +152,7 @@ function BookSlot(props: BookSlotProps) {
                                 label='Your address'
                                 withAsterisk
                                 minRows={4}
+                                {...form.getInputProps('address')}
                             />
                         </Stepper.Step>
                         <Stepper.Step label='Get your tickets'>
