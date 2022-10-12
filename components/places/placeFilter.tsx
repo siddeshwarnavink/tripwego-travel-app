@@ -28,8 +28,6 @@ const marks = [
     { value: 100, label: '₹1,00,000' },
 ];
 
-const breakpoints = { xs: 0, sm: 480, md: 1024 };
-
 function PlaceFilter(props: PlaceFilterProps) {
     const { screenIsAtLeast } = useResponsive();
 
