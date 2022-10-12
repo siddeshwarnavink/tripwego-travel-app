@@ -36,6 +36,8 @@ fs.readdirSync(models)
     // TODO: Fix for dynamic models
     db['places'] = require('/home/siddeshwar/Documents/Main coding/tripwego-travel-app/db/models/places.js')(sequelize, Sequelize.DataTypes);
     db['categories'] = require('/home/siddeshwar/Documents/Main coding/tripwego-travel-app/db/models/categories.js')(sequelize, Sequelize.DataTypes);
+    db['booking_slots'] = require('/home/siddeshwar/Documents/Main coding/tripwego-travel-app/db/models/booking_slots.js')(sequelize, Sequelize.DataTypes);
+    db['user_bookings'] = require('/home/siddeshwar/Documents/Main coding/tripwego-travel-app/db/models/user_bookings.js')(sequelize, Sequelize.DataTypes);
   });
 
 Object.keys(db).forEach(modelName => {

@@ -15,6 +15,7 @@ module.exports = {
       bookingCount: {
         type: Sequelize.INTEGER
       },
+      placeId: Sequelize.INTEGER,
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

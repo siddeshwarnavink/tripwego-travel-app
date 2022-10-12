@@ -15,7 +15,8 @@ module.exports = (sequelize, DataTypes) => {
   }
   booking_slots.init({
     dayOfWeek: DataTypes.INTEGER,
-    bookingCount: DataTypes.INTEGER
+    bookingCount: DataTypes.INTEGER,
+    placeId: DataTypes.INTEGER,
   }, {
     sequelize,
     modelName: 'booking_slots',
