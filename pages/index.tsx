@@ -21,8 +21,8 @@ export async function getServerSideProps({ req, query }) {
   const { origin } = absoluteUrl(req, undefined);
   const baseApiUrl = `${origin}/api`;
 
-  const budget = query.budget || '[]';
-  const category = query.category || -1;
+  const budget = query.budget ? query.budget : '[]';
+  const category = query.category ? query.category : 1;
   const placesReq = await fetch(`${baseApiUrl}/places?category=${category}&budget=${budget}`);
   const { places } = await placesReq.json();
 
@@ -38,7 +38,7 @@ export async function getServerSideProps({ req, query }) {
 }
 
 function Index(props: IndexProps) {
-  const [filterBudget, setFilterBudget] = useState([30, 60]);
+  const [filterBudget, setFilterBudget] = useState([0, 100]);
   const [tripDateRange, setTripDateRange] = useState([
     new Date(), // today
     new Date(new Date().getTime() + (5 * 24 * 60 * 60 * 1000)) // 5 days from toady
