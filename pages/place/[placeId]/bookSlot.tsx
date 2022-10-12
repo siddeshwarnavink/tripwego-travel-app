@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import {
     Container,
@@ -26,6 +26,7 @@ import PlaceListItem from '../../../components/places/placeListItem';
 interface BookSlotProps {
     place: IPlace;
     availableDates: string[];
+    baseApiUrl: string;
 }
 
 export async function getServerSideProps({ req, query }) {
@@ -41,7 +42,8 @@ export async function getServerSideProps({ req, query }) {
     return {
         props: {
             place,
-            availableDates
+            availableDates,
+            baseApiUrl
         }
     };
 }
@@ -68,26 +70,54 @@ function BookSlot(props: BookSlotProps) {
         },
     });
 
-    const nextStep = () => {
+    function nextStep() {
         if (active == 1) {
             form.validate();
             if (form.isValid()) {
                 setActive(2);
+                submitBookingFormHandler();
             }
         } else {
             setActive((current) => (current < 3 ? current + 1 : current));
         }
     }
-    const prevStep = () => setActive((current) => (current > 0 ? current - 1 : current));
+    function prevStep() {
+        setActive((current) => (current > 0 ? current - 1 : current));
+    }
 
     function setActiveStepHandler(step: number) {
         if (step === 2) {
             if (form.isValid()) {
                 setActive(step);
+                submitBookingFormHandler();
             }
         } else {
             setActive(step);
         }
+    }
+
+    async function submitBookingFormHandler() {
+        const {
+            email,
+            firstName,
+            lastName,
+            phoneNumber,
+            address
+        } = form.values;
+        await fetch(`${props.baseApiUrl}/booking/bookSlot`, {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify({
+                email,
+                firstName,
+                lastName,
+                phoneNumber,
+                address,
+                date: slotDate
+            })
+        });
     }
 
     return (
