@@ -1,6 +1,10 @@
+import Layout from '../components/layout';
+
 function Index() {
   return (
-    <h1>Home</h1>
+    <Layout>
+      <h1>Home</h1>
+    </Layout>
   );
 }
 
