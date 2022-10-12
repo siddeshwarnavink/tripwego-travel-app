@@ -8,6 +8,7 @@ import Router from 'next/router';
 import { IPlace } from '../models/IPlaces';
 import { ICategory } from '../models/ICategory';
 import absoluteUrl from '../helpers/absoluteUrl';
+import useTranslation from '../hooks/useTranslation';
 import Layout from '../components/layout';
 import PlaceFilter from '../components/places/placeFilter';
 import PlaceListItem from '../components/places/placeListItem';
@@ -44,6 +45,7 @@ function Index(props: IndexProps) {
     new Date(new Date().getTime() + (5 * 24 * 60 * 60 * 1000)) // 5 days from toady
   ]);
   const [filterCategory, setFilterCategory] = useState(1);
+  const { t } = useTranslation();
 
   async function onPlaceFilterFormSubmitHandler(event: FormEvent) {
     event.preventDefault();
@@ -74,7 +76,7 @@ function Index(props: IndexProps) {
           />
         </form>
         <Container fluid mt='xl'>
-          <Text size='xl' weight='bold'>Places to visit</Text>
+          <Text size='xl' weight='bold'>{t('home.listCaption')}</Text>
           {props.places.map(place => {
             return (
               <PlaceListItem

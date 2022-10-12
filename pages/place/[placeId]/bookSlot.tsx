@@ -188,7 +188,7 @@ function BookSlot(props: BookSlotProps) {
                         <Stepper.Step label='Get your tickets'>
                             <Container style={{ margin: '12px auto', maxWidth: '350px', textAlign: 'center' }}>
                                 <IconCircleCheck size={75} />
-                                <Text size='xl' weight='bold'>Ticket booked successfully</Text>
+                                <Text size='xl' weight='bold'>Slot booked successfully</Text>
                                 <Text>You'll soon be contacted by our team</Text>
 
                                 <div style={{ marginTop: '12px' }}>

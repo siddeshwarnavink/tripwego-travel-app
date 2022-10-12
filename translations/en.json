@@ -1,0 +1,12 @@
+{
+    "home": {
+        "listCaption": "Places to visit",
+        "filter": {
+            "caption": "Find your best destinaion",
+            "tripBudgetLabel": "Trip budget:",
+            "tripDurationLabel": "Trip duration:",
+            "categoryLabel": "Category:",
+            "actionBtn": "Search"
+        }
+    }
+}

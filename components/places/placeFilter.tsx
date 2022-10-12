@@ -7,10 +7,11 @@ import {
     Container,
     Select
 } from '@mantine/core';
-import { DateRangePicker, DateRangePickerValue } from '@mantine/dates';
+// import { DateRangePicker, DateRangePickerValue } from '@mantine/dates';
 import { useResponsive } from '../../hooks/useResponsive';
 
 import { ICategory } from '../../models/ICategory';
+import useTranslation from '../../hooks/useTranslation';
 
 interface PlaceFilterProps {
     budget: number[],
@@ -30,6 +31,7 @@ const marks = [
 
 function PlaceFilter(props: PlaceFilterProps) {
     const { screenIsAtLeast } = useResponsive();
+    const { t } = useTranslation();
 
     return (
         <Paper shadow='xs' radius='md' p='md'>
@@ -39,12 +41,14 @@ function PlaceFilter(props: PlaceFilterProps) {
                 weight='bold'
                 gradient={{ from: '#9FBD48', to: '#BCE548', deg: 45 }}
             >
-                Find your best destination
+                {t('home.filter.caption')}
             </Text>
             <Container fluid py='lg'>
                 <SimpleGrid cols={3} style={{ display: screenIsAtLeast('md') ? 'grid' : 'block' }}>
                     <div style={{ marginRight: '25px' }}>
-                        <Text size='sm' weight='bold'>Trip budget:</Text>
+                        <Text size='sm' weight='bold'>
+                            {t('home.filter.tripBudgetLabel')}
+                        </Text>
                         <RangeSlider
                             mt='xl'
                             value={[props.budget[0], props.budget[1]]}
@@ -54,11 +58,13 @@ function PlaceFilter(props: PlaceFilterProps) {
                         />
                     </div>
                     {/* <div style={screenIsAtLeast('md') ? null : { paddingTop: '32px' }}>
-                        <Text size='sm' weight='bold'>Trip duration:</Text>
+                        <Text size='sm' weight='bold'>{t('home.filter.tripDurationLabel')}</Text>
                         <DateRangePicker value={props.tripDateRange as DateRangePickerValue} onChange={props.onTripDateRangeChange} />
                     </div> */}
                     <div style={screenIsAtLeast('md') ? null : { paddingTop: '12px' }}>
-                        <Text size='sm' weight='bold'>Category:</Text>
+                        <Text size='sm' weight='bold'>
+                            {t('home.filter.categoryLabel')}
+                        </Text>
                         <Select
                             value={`${props.categoryPicked}`}
                             data={props.categories.map(category => {
@@ -73,7 +79,9 @@ function PlaceFilter(props: PlaceFilterProps) {
                 </SimpleGrid>
             </Container>
             <Container fluid mt='xl' px={0}>
-                <Button type='submit'>Search</Button>
+                <Button type='submit'>
+                    {t('home.filter.actionBtn')}
+                </Button>
             </Container>
         </Paper >
     );
