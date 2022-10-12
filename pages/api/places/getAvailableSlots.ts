@@ -10,7 +10,7 @@ function getDayOrderOfWeek(dayOrder: number, isNextWeek = false) {
     const myDate = isNextWeek ? new Date(curr.setDate(last + 1)) : new Date();
 
     let day = myDate.getDate() - (myDate.getDay() - dayOrder);
-    let month = myDate.getMonth();
+    let month = myDate.getMonth() + 1;
     let year = myDate.getFullYear();
 
     return `${year}-${month}-${day}`;
