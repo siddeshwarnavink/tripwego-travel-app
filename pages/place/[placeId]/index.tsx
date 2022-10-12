@@ -1,13 +1,20 @@
 import { BackgroundImage, Container, Text, Button, Card, Grid, Chip, Tabs, SimpleGrid, Image, Timeline } from '@mantine/core';
 import { Carousel } from '@mantine/carousel';
-import { IconInfoCircle, IconMapPin, IconMap } from '@tabler/icons';
+import { IconMap } from '@tabler/icons';
 import YouTube from 'react-youtube';
 
 import absoluteUrl from '../../../helpers/absoluteUrl';
 import currencyFormatter from '../../../helpers/currencyFormatter';
+import useResponsive from '../../../hooks/useResponsive';
+import { IPlace } from '../../../models/IPlaces';
 import Layout from '../../../components/layout';
 import LocationItem from '../../../components/location/locationItem';
 import LocationFeature from '../../../components/location/locationFeature';
+import Link from 'next/link';
+
+interface PlaceDetailProps {
+    place: IPlace;
+}
 
 export async function getServerSideProps({ req, query }) {
     const { origin } = absoluteUrl(req, undefined);
@@ -23,7 +30,9 @@ export async function getServerSideProps({ req, query }) {
     };
 }
 
-function PlaceDetail(props) {
+function PlaceDetail(props: PlaceDetailProps) {
+    const { screenIsAtLeast } = useResponsive();
+
     return (
         <Layout>
             <BackgroundImage src={props.place.cover_picture}>
@@ -36,80 +45,54 @@ function PlaceDetail(props) {
                                 <Text size='md' weight='bold' color='#9FBD48'>{currencyFormatter(props.place.price)}</Text>
                             </div>
                             <div>
-                                <Button>Book now</Button>
+                                <Link passHref href={`/place/${props.place.id}/bookSlot`}>
+                                    <Button component='a'>Book now</Button>
+                                </Link>
                             </div>
                         </div>
                     </Container>
                 </Container>
             </BackgroundImage>
-            <Container fluid px='md'>
+            <Container px='md'>
                 <Container fluid pt='xl' px={0}>
-                    <Grid>
-                        <Grid.Col span={7}>
-                            <Card shadow='md'>
-                                <Tabs defaultValue="about">
-                                    <Tabs.List>
-                                        <Tabs.Tab value="about" icon={<IconInfoCircle size={14} />}>About</Tabs.Tab>
-                                        <Tabs.Tab value="location" icon={<IconMapPin size={14} />}>Location</Tabs.Tab>
-                                    </Tabs.List>
+                    <YouTube
+                        videoId={props.place.youtubeId}
+                        opts={{
+                            width: '100%',
+                            heigth: '100%',
+                            playerVars: {
+                                autoplay: 1,
+                                controls: 0,
+                                disablekb: 1,
+                                mute: 1
+                            },
+                        }}
+                    />
+                    <Card shadow='md' mt='lg'>
+                        <Text size='xl' weight='bold'>{props.place.title}</Text>
+                        <Container fluid px={0}>
+                            <Chip checked={false}>{props.place.categories.caption}</Chip>
+                        </Container>
+                        <Container fluid px={0} py='sm'>
+                            <Text size='md'>{props.place.description}</Text>
+                        </Container>
 
-                                    <Tabs.Panel value="about" pt="xs">
-                                        <Text size='xl' weight='bold'>About the place</Text>
-
-                                        <Container fluid px={0} py='sm'>
-                                            <Text size='md'>{props.place.description}</Text>
-                                        </Container>
-                                        <Container fluid px={0} py='sm'>
-                                            <Chip checked={false}>{props.place.categories.caption}</Chip>
-                                        </Container>
-                                    </Tabs.Panel>
-
-                                    <Tabs.Panel value="location" pt="xs">
-                                        <Text size='xl' weight='bold'>Location</Text>
-
-                                        <Container fluid px={0} py='sm'>
-                                            <Text size='md'>
-                                                {props.place.address}
-                                            </Text>
-
-                                            <Container fluid px={0} py='sm'>
-                                                <Button leftIcon={<IconMap size={14} />}>View on maps</Button>
-                                            </Container>
-                                        </Container>
-                                    </Tabs.Panel>
-                                </Tabs>
-                            </Card>
-                        </Grid.Col>
-                        <Grid.Col span={5} style={{ margin: 'auto 0' }}>
-                            <YouTube
-                                videoId={props.place.youtubeId}
-                                opts={{
-                                    width: '100%',
-                                    heigth: '100%',
-                                    playerVars: {
-                                        autoplay: 1,
-                                        controls: 0,
-                                        disablekb: 1,
-                                        mute: 1
-                                    },
-                                }}
-                            />
-                        </Grid.Col>
-                    </Grid>
+                        <Button leftIcon={<IconMap size={14} />}>View on maps</Button>
+                    </Card>
                 </Container>
-
                 <Container fluid pt={35} px={0}>
                     <Text size='xl' weight='bold'>Location to visit</Text>
                     <Text color='gray' size='md'>Location we will visit in this tour</Text>
                 </Container>
                 <Container fluid pt='md' px={0}>
-                    <SimpleGrid cols={6}>
+                    <SimpleGrid cols={4} style={screenIsAtLeast('sm') ? null : { display: 'block' }} >
                         {JSON.parse(props.place.locations).map((location, i) => {
                             return (
                                 <LocationItem
                                     key={i + location.caption}
                                     thumbnail={location.thumbnail}
                                     caption={location.caption}
+                                    marginBottom={!screenIsAtLeast('sm')}
                                 />
                             );
                         })}
@@ -135,11 +118,16 @@ function PlaceDetail(props) {
                     <Text size='xl' weight='bold'>Facilities</Text>
                     <Text color='gray' size='md'>Facilities provided by us if you decide to take this tour</Text>
                 </Container>
+
                 <Container fluid pt='md' px={0}>
-                    <SimpleGrid cols={6}>
+                    <SimpleGrid style={screenIsAtLeast('sm') ? null : { display: 'block' }} cols={5}>
                         {props.place.facilities.split(',').map((facilityName, index) => {
                             return (
-                                <LocationFeature key={index + facilityName} caption={facilityName} />
+                                <LocationFeature
+                                    key={index + facilityName}
+                                    caption={facilityName}
+                                    marginBottom={!screenIsAtLeast('sm')}
+                                />
                             );
                         })}
                     </SimpleGrid>
@@ -170,7 +158,9 @@ function PlaceDetail(props) {
                 <Container p={50}>
                     <Text size='xl' weight='bold'>What are you waiting for?</Text>
                     <Container pt='md'>
-                        <Button variant='outline' color='dark'>Book now</Button>
+                        <Link passHref href={`/place/${props.place.id}/bookSlot`}>
+                            <Button component='a' variant='outline' color='dark'>Book now</Button>
+                        </Link>
                     </Container>
                 </Container>
             </Card>

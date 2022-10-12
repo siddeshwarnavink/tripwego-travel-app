@@ -3,11 +3,12 @@ import { Card, Image, Text, Group } from '@mantine/core';
 interface LocationProps {
     thumbnail: string;
     caption: string;
+    marginBottom: boolean;
 }
 
 function LocationItem(props: LocationProps) {
     return (
-        <Card shadow="sm" p="lg" radius="md" withBorder>
+        <Card shadow="sm" p="lg" radius="md" withBorder mb={props.marginBottom ? 'md' : null}>
             <Card.Section>
                 <Image
                     src={props.thumbnail}
