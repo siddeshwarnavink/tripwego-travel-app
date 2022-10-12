@@ -8,5 +8,17 @@
             "categoryLabel": "Category:",
             "actionBtn": "Search"
         }
+    },
+    "placeDetail": {
+        "bookNowBtn": "Book now",
+        "viewOnMapBtn": "View on maps",
+        "locationCaption": "Location to visit",
+        "locaitonSubCaption": "Location we will visit in this tour",
+        "photosCaption": "Photos",
+        "facilitiesCaption": "Facilities",
+        "facilitiesSubCaption": "Facilities provided by us if you decide to take this tour",
+        "roadmapCaption": "Roadmap",
+        "roadmapSubCaption": "Overview of the schedule of the tour",
+        "finalCardCaption": "What are you waiting for?"
     }
 }

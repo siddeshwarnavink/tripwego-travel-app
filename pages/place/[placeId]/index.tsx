@@ -6,6 +6,7 @@ import YouTube from 'react-youtube';
 import absoluteUrl from '../../../helpers/absoluteUrl';
 import currencyFormatter from '../../../helpers/currencyFormatter';
 import useResponsive from '../../../hooks/useResponsive';
+import useTranslation from '../../../hooks/useTranslation';
 import { IPlace } from '../../../models/IPlaces';
 import Layout from '../../../components/layout';
 import LocationItem from '../../../components/location/locationItem';
@@ -32,6 +33,7 @@ export async function getServerSideProps({ req, query }) {
 
 function PlaceDetail(props: PlaceDetailProps) {
     const { screenIsAtLeast } = useResponsive();
+    const { t } = useTranslation();
 
     return (
         <Layout>
@@ -46,7 +48,7 @@ function PlaceDetail(props: PlaceDetailProps) {
                             </div>
                             <div>
                                 <Link passHref href={`/place/${props.place.id}/bookSlot`}>
-                                    <Button component='a'>Book now</Button>
+                                    <Button component='a'>{t('placeDetail.bookNowBtn')}</Button>
                                 </Link>
                             </div>
                         </div>
@@ -77,12 +79,14 @@ function PlaceDetail(props: PlaceDetailProps) {
                             <Text size='md'>{props.place.description}</Text>
                         </Container>
 
-                        <Button leftIcon={<IconMap size={14} />}>View on maps</Button>
+                        <Button leftIcon={<IconMap size={14} />}>
+                            {t('placeDetail.viewOnMapBtn')}
+                        </Button>
                     </Card>
                 </Container>
                 <Container fluid pt={35} px={0}>
-                    <Text size='xl' weight='bold'>Location to visit</Text>
-                    <Text color='gray' size='md'>Location we will visit in this tour</Text>
+                    <Text size='xl' weight='bold'>{t('placeDetail.locationCaption')}</Text>
+                    <Text color='gray' size='md'>{t('placeDetail.locaitonSubCaption')}</Text>
                 </Container>
                 <Container fluid pt='md' px={0}>
                     <SimpleGrid cols={4} style={screenIsAtLeast('sm') ? null : { display: 'block' }} >
@@ -100,7 +104,7 @@ function PlaceDetail(props: PlaceDetailProps) {
                 </Container>
 
                 <Container fluid pt={35} px={0}>
-                    <Text size='xl' weight='bold'>Photos</Text>
+                    <Text size='xl' weight='bold'>{t('placeDetail.photosCaption')}</Text>
                 </Container>
                 <Container fluid px={0} py='sm'>
                     <Carousel sx={{ maxWidth: 950 }} mx='auto' loop withIndicators>
@@ -115,8 +119,8 @@ function PlaceDetail(props: PlaceDetailProps) {
                 </Container>
 
                 <Container fluid pt={35} px={0}>
-                    <Text size='xl' weight='bold'>Facilities</Text>
-                    <Text color='gray' size='md'>Facilities provided by us if you decide to take this tour</Text>
+                    <Text size='xl' weight='bold'>{t('placeDetail.facilitiesCaption')}</Text>
+                    <Text color='gray' size='md'>{t('placeDetail.facilitiesSubCaption')}</Text>
                 </Container>
 
                 <Container fluid pt='md' px={0}>
@@ -134,8 +138,8 @@ function PlaceDetail(props: PlaceDetailProps) {
                 </Container>
 
                 <Container fluid pt={35} px={0}>
-                    <Text size='xl' weight='bold'>Roadmap</Text>
-                    <Text color='gray' size='md'>Overview of the schedule of the tour</Text>
+                    <Text size='xl' weight='bold'>{t('placeDetail.roadmapCaption')}</Text>
+                    <Text color='gray' size='md'>{t('placeDetail.roadmapSubCaption')}</Text>
                 </Container>
                 <Container fluid pt='md' px={20} >
                     <Timeline active={JSON.parse(props.place.roadmap).length} bulletSize={24} lineWidth={2}>
@@ -156,10 +160,14 @@ function PlaceDetail(props: PlaceDetailProps) {
                     textAlign: 'center'
                 })}>
                 <Container p={50}>
-                    <Text size='xl' weight='bold'>What are you waiting for?</Text>
+                    <Text size='xl' weight='bold'>
+                        {t('placeDetail.finalCardCaption')}
+                    </Text>
                     <Container pt='md'>
                         <Link passHref href={`/place/${props.place.id}/bookSlot`}>
-                            <Button component='a' variant='outline' color='dark'>Book now</Button>
+                            <Button component='a' variant='outline' color='dark'>
+                                {t('placeDetail.bookNowBtn')}
+                            </Button>
                         </Link>
                     </Container>
                 </Container>
