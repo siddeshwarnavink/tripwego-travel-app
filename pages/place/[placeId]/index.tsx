@@ -3,11 +3,11 @@ import { Carousel } from '@mantine/carousel';
 import { IconInfoCircle, IconMapPin, IconMap } from '@tabler/icons';
 import YouTube from 'react-youtube';
 
-import absoluteUrl from '../../helpers/absoluteUrl';
-import currencyFormatter from '../../helpers/currencyFormatter';
-import Layout from '../../components/layout';
-import LocationItem from '../../components/location/locationItem';
-import LocationFeature from '../../components/location/locationFeature';
+import absoluteUrl from '../../../helpers/absoluteUrl';
+import currencyFormatter from '../../../helpers/currencyFormatter';
+import Layout from '../../../components/layout';
+import LocationItem from '../../../components/location/locationItem';
+import LocationFeature from '../../../components/location/locationFeature';
 
 export async function getServerSideProps({ req, query }) {
     const { origin } = absoluteUrl(req, undefined);

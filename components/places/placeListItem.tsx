@@ -18,7 +18,7 @@ function PlaceListItem(props: PlaceListItemProps) {
             <Link href={`/place/${props.placeId}`}>
                 <Paper shadow='sm' style={{ cursor: 'pointer' }}>
                     <Grid>
-                        <Grid.Col span={2}>
+                        <Grid.Col span={3}>
                             <Image
                                 src={props.thumbnail}
                                 height={160}
