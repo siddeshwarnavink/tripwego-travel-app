@@ -27,6 +27,7 @@ module.exports = {
       address: {
         type: Sequelize.TEXT
       },
+      placeId: Sequelize.INTEGER,
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

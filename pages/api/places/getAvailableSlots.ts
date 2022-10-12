@@ -20,7 +20,6 @@ function isInThePast(date) {
     return date < today;
 }
 
-
 const handler = nextConnect()
     .get(async (req: NextApiRequest, res: NextApiResponse) => {
         const bookingSlots = await model.booking_slots.findAll({
@@ -29,15 +28,25 @@ const handler = nextConnect()
             }
         });
 
-        // TODO: Add logic to check if slot is available
         const availableDates = [];
-        bookingSlots.forEach(bookingSlot => {
-            const slotDate = new Date(getDayOrderOfWeek(bookingSlot.dayOfWeek));
+        for (let i = 0; i < bookingSlots.length; i++) {
+            const bookingSlot = bookingSlots[i];
+            const slotDateString = getDayOrderOfWeek(bookingSlot.dayOfWeek);
+            const slotDate = new Date(slotDateString);
+
+            const numberOfPastBookings = await model.user_bookings.count({
+                where: {
+                    date: slotDateString,
+                    placeId: req.query.id
+                }
+            });
 
             if (slotDate.getDate() > new Date().getDate()) {
-                availableDates.push(getDayOrderOfWeek(bookingSlot.dayOfWeek));
+                if (bookingSlot.bookingCount !== numberOfPastBookings && bookingSlot.bookingCount > numberOfPastBookings) {
+                    availableDates.push(getDayOrderOfWeek(bookingSlot.dayOfWeek));
+                }
             }
-        });
+        }
 
         res.status(200).json(availableDates);
     });

@@ -19,7 +19,8 @@ module.exports = (sequelize, DataTypes) => {
     lastName: DataTypes.STRING,
     email: DataTypes.STRING,
     phoneNumber: DataTypes.STRING,
-    address: DataTypes.TEXT
+    address: DataTypes.TEXT,
+    placeId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'user_bookings',
