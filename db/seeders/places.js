@@ -139,10 +139,9 @@ const PLACES = [
             'https://toliday.in/blog/wp-content/uploads/2022/04/1588920518_shutterstock_1611108550.jpg.jpg'
         ]),
         locations: JSON.stringify([
-            { caption: 'Kodaikanal Lake', thumbnail: 'https://encrypted-tbn2.gstatic.com/licensed-image?q=tbn:ANd9GcR21lbIimMhY2vCTj8BBDht9bZZgxNzRxlKPb8Je-m0Xt0MtO-JQH8hAaB8gJRTb08_OnyOi-CFJUX-GkkCDljmyw' },
-            { caption: 'Coakers Walk', thumbnail: 'https://encrypted-tbn0.gstatic.com/licensed-image?q=tbn:ANd9GcREbYKWZQApe6e8MKW00R6CLtwO2zpmrAZtuGou0lulU1IfbT1Y8kMaqj14C4kUgXmPHb054te_kvVepuOhSUkpQw' },
-            { caption: 'Bryant Park', thumbnail: 'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcR8B5JAqmxqefZth0m5V5-s_etkmWcoP5U1G2mS04-CR4hsFRgNx7gdNoW-RMHvSBcwk3nlbH9DsZSoK8hT7CNFUw' },
-            { caption: 'Echo Point', thumbnail: 'https://encrypted-tbn3.gstatic.com/licensed-image?q=tbn:ANd9GcQpA4rx3vWOqSBLnXq7_3k94b7WnQC_IV-yTVFoQ6OjsXkvH_0jgC6qfo-f9eUbENCWxrnhwueAP7GzcB7lbusx4g' },
+            { caption: 'Mall Road', thumbnail: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbnVF0NOdj-YFrrR-SL3DpOuLb3jW1GTe0B_NwmUr4tMIneoPeaafmJvNVJ1SHeXMd9hiVltWtaJhEpI7q_RXs3A' },
+            { caption: 'The Ridge', thumbnail: 'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcT4kD5t0fRYjYnu84HCOw_njMju1U0kyiE-bnylocByjAnpUgSI_Q4FKGN_VFG8ltVCWSuQAHtKuynDV9RIgyAmcA' },
+            { caption: 'Scandal Point', thumbnail: 'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcStNSZp66_kFTqd2p6deGvka80DQk8ssc3S83bsCAizuzKfOmnF9mXd0wJOaS36ID6HAFJ1OJSvcNAT5KawkabK7Q' },
         ]),
         roadmap: JSON.stringify([
             { location: 'Hotel', time: '8:00am' },
@@ -151,6 +150,30 @@ const PLACES = [
             { location: 'Lunch', time: '1:00pm' },
             { location: 'Echo Point', time: '2:00pm' },
             { location: 'Hotel', time: '4:30pm' },
+        ])
+    },
+    {
+        title: 'Marina beach',
+        short_description: 'Marina Beach, or simply the Marina, is a natural urban beach in Chennai',
+        description: `Marina Beach, or simply the Marina, is a natural urban beach in Chennai, Tamil Nadu, India, along the Bay of Bengal. The beach runs from near Fort St. George in the north to Foreshore Estate in the south, a distance of 6.0 km, making it the second longest urban beach in the world, after Cox's Bazar Beach.`,
+        address: 'Marina beach,Chennai,Tamil nadu, India',
+        thumbnail: 'https://www.tourmyindia.com/states/tamilnadu/images/marina-beach1-1.jpg',
+        cover_picture: 'https://www.tamilnadutourism.tn.gov.in/img/pages/medium-desktop/marina-beach-1656303766_3ddf37f0ea992c79047a.webp',
+        facilities: 'Travelling',
+        price: 10000,
+        category: 2,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        youtubeId: 'u0jfi3jsS5w',
+        pictures: JSON.stringify([
+            'https://upload.wikimedia.org/wikipedia/commons/d/d9/Chennai_-_bird%27s-eye_view.jpg'
+        ]),
+        locations: JSON.stringify([
+            { caption: 'Beach', thumbnail: 'https://yometro.com/images/places/marina-beach.jpg' },
+            { caption: 'Light house', thumbnail: 'https://www.trawell.in/admin/images/upload/786367545Chennai_Lighthouse_Main.jpg' },
+        ]),
+        roadmap: JSON.stringify([
+            { location: 'Marina Beach', time: '8:00am' },
         ])
     },
 ];
