@@ -3,10 +3,10 @@ import nextConnect from 'next-connect';
 
 import model from '../../../db/models';
 
-function getDayOrderOfWeek(dayOrder: number, isNextWeek = false) {
-    var curr = new Date; // get current date
-    var first = curr.getDate() - curr.getDay();
-    var last = first + 6;
+export function getDayOrderOfWeek(dayOrder: number, isNextWeek = false) {
+    const curr = new Date; // get current date
+    const first = curr.getDate() - curr.getDay();
+    const last = first + 6;
     const myDate = isNextWeek ? new Date(curr.setDate(last + 1)) : new Date();
 
     let day = myDate.getDate() - (myDate.getDay() - dayOrder);
