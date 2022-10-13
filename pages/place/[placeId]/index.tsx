@@ -79,7 +79,12 @@ function PlaceDetail(props: PlaceDetailProps) {
                             <Text size='md'>{props.place.description}</Text>
                         </Container>
 
-                        <Button leftIcon={<IconMap size={14} />}>
+                        <Button
+                            component='a'
+                            href={`https://maps.google.com/?q=${props.place.title},${props.place.address}`}
+                            target='_blank'
+                            leftIcon={<IconMap size={14} />}
+                        >
                             {t('placeDetail.viewOnMapBtn')}
                         </Button>
                     </Card>
