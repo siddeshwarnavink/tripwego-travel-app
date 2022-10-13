@@ -16,6 +16,7 @@ import { useForm } from '@mantine/form';
 
 import { IPlace } from '../../../models/IPlaces';
 import useTranslation from '../../../hooks/useTranslation';
+import useResponsive from '../../../hooks/useResponsive';
 import absoluteUrl from '../../../helpers/absoluteUrl';
 import formatDate from '../../../helpers/formatDate';
 import validateEmail from '../../../helpers/validateEmail';
@@ -53,6 +54,7 @@ function BookSlot(props: BookSlotProps) {
     const [active, setActive] = useState(0);
     const [slotDate, setSlotDate] = useState(props.availableDates[0]);
     const { t } = useTranslation();
+    const { screenIsAtLeast } = useResponsive();
 
     const form = useForm({
         initialValues: {
@@ -141,7 +143,7 @@ function BookSlot(props: BookSlotProps) {
                 <Container mt='xl'>
                     <Stepper active={active} onStepClick={setActiveStepHandler} breakpoint='sm'>
                         <Stepper.Step label={t('bookSlot.step1.caption')}>
-                            <SimpleGrid cols={2} px='lg'>
+                            <SimpleGrid cols={screenIsAtLeast('md') ? 2 : 0} px='lg'>
                                 <Select
                                     label={t('bookSlot.step1.selectDateLabel')}
                                     value={slotDate}
@@ -156,7 +158,7 @@ function BookSlot(props: BookSlotProps) {
                             </SimpleGrid>
                         </Stepper.Step>
                         <Stepper.Step label={t('bookSlot.step2.caption')}>
-                            <SimpleGrid cols={2}>
+                            <SimpleGrid cols={screenIsAtLeast('md') ? 2 : 0} >
                                 <TextInput
                                     withAsterisk
                                     label={t('bookSlot.step2.firstNameLabel')}
@@ -168,7 +170,7 @@ function BookSlot(props: BookSlotProps) {
                                     {...form.getInputProps('lastName')}
                                 />
                             </SimpleGrid>
-                            <SimpleGrid cols={2}>
+                            <SimpleGrid cols={screenIsAtLeast('md') ? 2 : 0} >
                                 <TextInput
                                     withAsterisk
                                     label={t('bookSlot.step2.emailLabel')}

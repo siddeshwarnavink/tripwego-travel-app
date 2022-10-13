@@ -61,7 +61,7 @@ function PlaceFilter(props: PlaceFilterProps) {
                         <Text size='sm' weight='bold'>{t('home.filter.tripDurationLabel')}</Text>
                         <DateRangePicker value={props.tripDateRange as DateRangePickerValue} onChange={props.onTripDateRangeChange} />
                     </div> */}
-                    <div style={screenIsAtLeast('md') ? null : { paddingTop: '12px' }}>
+                    <div style={screenIsAtLeast('md') ? null : { paddingTop: '32px' }}>
                         <Text size='sm' weight='bold'>
                             {t('home.filter.categoryLabel')}
                         </Text>
