@@ -1,8 +1,10 @@
-import { ReactNode } from 'react';
+import { ReactNode, useContext } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { AppShell, Image, Header, Grid, Text, SimpleGrid } from '@mantine/core';
-import { IconMapPin, IconCalendarTime, IconInfoCircle } from '@tabler/icons';
+import { AppShell, Image, Header, Grid, ActionIcon, Group } from '@mantine/core';
+import { IconMapPin, IconCalendarTime, IconInfoCircle, IconSun, IconMoonStars } from '@tabler/icons';
+
+import { themeContext } from '../context/theme-context';
 
 interface LayoutProps {
     children: ReactNode
@@ -10,6 +12,7 @@ interface LayoutProps {
 
 function Layout(props: LayoutProps) {
     const router = useRouter();
+    const themeCtx = useContext(themeContext)
 
     const navigationLinks = [
         { caption: 'Places', path: '/', icon: IconMapPin },
@@ -26,40 +29,17 @@ function Layout(props: LayoutProps) {
             padding='md'
             header={(
                 <Header height={60} p='xs'>
-                    <Grid>
-                        <Grid.Col span={1}>
-                            <div style={{ width: '150px', cursor: 'pointer' }}>
-                                <Link href='/'>
-                                    <Image src='/images/TripWeGo_Logo.svg' alt='TripWeGo' />
-                                </Link>
-                            </div>
-                        </Grid.Col>
-                        {/* <Grid.Col span={3}>
-                            <SimpleGrid cols={3}>
-                                {navigationLinks.map((link, i) => {
-                                    return (
-                                        <Link key={link.caption + i} href={link.path} passHref>
-                                            <Text
-                                                component='a'
-                                                style={{
-                                                    display: 'flex',
-                                                    alignItems: 'center',
-                                                    justifyContent: 'center',
-                                                    padding: '5px 0px',
-                                                    cursor: 'pointer'
-                                                }}
-                                                weight={isActiveLink(link.path) ? 'bold' : 'normal'}
-                                                color={isActiveLink(link.path) ? '#7e9636' : 'gray'}
-                                            >
-                                                <link.icon stroke={1.5} />
-                                                <div>{link.caption}</div>
-                                            </Text>
-                                        </Link>
-                                    );
-                                })}
-                            </SimpleGrid>
-                        </Grid.Col> */}
-                    </Grid>
+                    <Group sx={{ height: '100%' }} px={20} position="apart">
+                        <div style={{ width: '150px', cursor: 'pointer' }}>
+                            <Link href='/'>
+                                <Image src={themeCtx.isDarkMode ? '/images/TripWeGo_Logo_Dark.svg' : '/images/TripWeGo_Logo.svg'} alt='TripWeGo' />
+                            </Link>
+                        </div>
+                        <ActionIcon variant="default" onClick={() => themeCtx.setIsDarkMode(!themeCtx.isDarkMode)} size={30}>
+                            {themeCtx.isDarkMode ? <IconSun size={16} /> : <IconMoonStars size={16} />}
+                        </ActionIcon>
+                    </Group>
+
                 </Header>
             )}
         >
