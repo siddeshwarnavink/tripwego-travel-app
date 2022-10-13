@@ -1,4 +1,7 @@
 # TripWeGo ✈️
+![CI Badge](https://github.com/siddeshwarnavink/tripwego-travel-app/actions/workflows/github-actions.yml/badge.svg)
+![PR Welcomed](https://img.shields.io/badge/PRs-welcome-brightgreen)
+
 All-in-one solution for your travel.
 
 ## Get started
