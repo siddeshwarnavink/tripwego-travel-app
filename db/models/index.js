@@ -22,23 +22,19 @@ if (config.use_env_variable) {
     config,
   );
 }
-/* fs.readdirSync(__dirname) */
-fs.readdirSync(models)
-  .filter(file => {
-    return (
-      file.indexOf('.') !== 0 && file !== basename && file.slice(-3) === '.js'
-    );
-  })
-  .forEach(file => {
-    // const model = require(path.join(models, file))(sequelize, Sequelize.DataTypes)
-    // db[model.name] = model;
+function requireDynamically(path) {
+  path = path.split('\\').join('/');
+  return eval(`require('${path}');`);
+}
+function importModel(modelName) {
+  const path = models + modelName + '.js';
+  db[modelName] = requireDynamically(path)(sequelize, Sequelize.DataTypes);
+}
 
-    // TODO: Fix for dynamic models
-    db['places'] = require('/home/siddeshwar/Documents/Main coding/tripwego-travel-app/db/models/places.js')(sequelize, Sequelize.DataTypes);
-    db['categories'] = require('/home/siddeshwar/Documents/Main coding/tripwego-travel-app/db/models/categories.js')(sequelize, Sequelize.DataTypes);
-    db['booking_slots'] = require('/home/siddeshwar/Documents/Main coding/tripwego-travel-app/db/models/booking_slots.js')(sequelize, Sequelize.DataTypes);
-    db['user_bookings'] = require('/home/siddeshwar/Documents/Main coding/tripwego-travel-app/db/models/user_bookings.js')(sequelize, Sequelize.DataTypes);
-  });
+importModel('places');
+importModel('categories');
+importModel('booking_slots');
+importModel('user_bookings');
 
 Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) {
