@@ -117,7 +117,8 @@ function BookSlot(props: BookSlotProps) {
                 lastName,
                 phoneNumber,
                 address,
-                date: slotDate
+                date: slotDate,
+                placeId: props.place.id
             })
         });
     }

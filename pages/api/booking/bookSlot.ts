@@ -40,7 +40,8 @@ const handler = nextConnect()
             email,
             phoneNumber,
             address,
-            date
+            date,
+            placeId
         } = req.body;
         try {
             if (!validateRequest(req)) {
@@ -53,7 +54,8 @@ const handler = nextConnect()
                 email,
                 phoneNumber,
                 address,
-                date
+                date,
+                placeId
             });
 
             res.status(200).json({
